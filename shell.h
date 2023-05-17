@@ -1,5 +1,5 @@
-#ifndef main_h
-#define main_h
+#ifndef SHELL_H
+#define SHELL_H
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -11,6 +11,11 @@
 #include <signal.h>
 #include <fcntl.h>
 #include <errno.h>
+
+extern char **environ;
+
+char *show_input(void);
+void prompt(void);
 
 typedef struct funcs {
 	char *command;

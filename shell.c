@@ -2,15 +2,19 @@
 
 /**
  * main - entry point
- * @argc - number of arguments
- * @argv - array of strings of arguements
+ * @argc: number of arguments
+ * @argv: array of strings of arguements
  *
- * Retrn: O on success, ...
+ * Return: loop that ends on user exit command
  */
+
 int main(int argc, char **argv)
 {
-	
+	(void)argv;
+	(void)argc;
 
-
+	signal(SIGINT, controlC);
+	prompt();
 	return (0);
+
 }
