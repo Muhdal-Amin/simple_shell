@@ -44,7 +44,7 @@ int _strcmp(char *str1, char *str2)
 }
 
 /**
- * _strcpy - duplicates a string
+ * _strcpy - copies content of a string to another string
  * @dest - the new duplicate string
  * @src - the original string
  *

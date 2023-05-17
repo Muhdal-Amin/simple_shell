@@ -13,3 +13,18 @@ int _putchar(char c)
 	return (write(1, &c, 1));
 }
 
+/**
+ * _puts - writes the string *str to stdout
+ * @str - the string to print
+ *
+ * Return: void
+ */
+void _puts(char *str)
+{
+	int i;
+
+	for(i = 0; str[i] != '\0'; i++)
+		_putchar(str[i]);
+
+	_putchar('\n');
+}
