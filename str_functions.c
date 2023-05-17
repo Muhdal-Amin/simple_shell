@@ -42,3 +42,25 @@ int _strcmp(char *str1, char *str2)
 
 	return (0);
 }
+
+/**
+ * _strcpy - duplicates a string
+ * @dest - the new duplicate string
+ * @src - the original string
+ *
+ * Return: pointer to new string
+ */
+char *_strcpy(char *dest, char *src)
+{
+	int i;
+
+	if (!src)
+		return (dest);
+
+	for(i = 0; src[i] != '\0'; i++)
+		dest[i] = src[i];
+
+	dest[i] = '\0';
+
+	return (dest);
+}
