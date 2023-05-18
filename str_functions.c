@@ -1,4 +1,4 @@
-#include <shell.h>
+#include "shell.h"
 
 /**
  * _strlen - returns the length of a string
@@ -24,20 +24,22 @@ int _strlen(char *str)
  * @str1 - first string
  * @str2 - second string
  *
- * Return: 0 if they are simmilar, 1 otherwise
+ * Return: 0 if they are simmilar, -1 otherwise
  */
 int _strcmp(char *str1, char *str2)
 {
+	int i = 0;
+
 	if (!str1 || !str2)
-		return (1);
+		return (-1);
 
 	if (_strlen(str1) != _strlen(str2))
-		return (1);
+		return (-1);
 
 	for(i = 0; i <= _strlen(str1); i++)
 	{
 		if (str1[i] != str2[i])
-			return (1);
+			return (-1);
 	}
 
 	return (0);
@@ -48,19 +50,20 @@ int _strcmp(char *str1, char *str2)
  * @dest - the new duplicate string
  * @src - the original string
  *
- * Return: pointer to new string
+ * Return: 0
  */
-char *_strcpy(char *dest, char *src)
+int _strcpy(char *dest, char *src)
 {
-	int i;
+	int i = 0;
 
 	if (!src)
-		return (dest);
+		return (-1);
 
-	for(i = 0; src[i] != '\0'; i++)
+	while (src[i])
+	{
 		dest[i] = src[i];
+		i++;
+	}
 
-	dest[i] = '\0';
-
-	return (dest);
+	return (0);
 }

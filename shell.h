@@ -27,7 +27,7 @@ int _putchar(char c);
 int _puts(char *str);
 int _strlen(char *str);
 int _strcmp(char *str1, char *str2);
-int *_strcpy(char *dest, char *src);
+int _strcpy(char *dest, char *src);
 
 
 
