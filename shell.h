@@ -17,17 +17,14 @@ extern char **environ;
 char *show_input(void);
 void prompt(void);
 
-typedef struct funcs {
-	char *command;
-	char func; //int (*f)... we will make an array of pointers to the functions (i.e ls, pwd, exit, etc...)
-} functions;
-
 
 int _putchar(char c);
 int _puts(char *str);
 int _strlen(char *str);
 int _strcmp(char *str1, char *str2);
 int _strcpy(char *dest, char *src);
+char *_strcat(char *dest, char *src);
+char *_strdup(const char *str);
 
 
 
