@@ -1,8 +1,8 @@
-#include "shell.h"i
+#include "shell.h"
 
 /**
  * execve_cmd - executes a given command
- * @argv - array containing tokenized input text
+ * @argv : array containing tokenized input text
  *
  * Return: void
  */

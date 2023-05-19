@@ -1,4 +1,4 @@
-#include "main.h"
+#include "shell.h"
 
 /**
  * main - entry point
@@ -15,6 +15,7 @@ int main(int argc, char **argv)
 	int status;
 	size_t n = 0;
 	ssize_t read_count;
+	char *prompt = "$ ";
 	char *lineptr = NULL, *lineptr_dup = NULL;
 	char *token;
 	const char *delim = " \n";

@@ -10,11 +10,12 @@
 char *_strcat(char *dest, char *src)
 {
 	int i = 0, j = 0;
+	char *result;
 
 	if (!dest && !src)
 		return (NULL);
 
-	char *result = dest;
+	result = dest;
 
 	while (result[i] != '\0')
 		i++;
