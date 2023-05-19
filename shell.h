@@ -14,17 +14,19 @@
 
 extern char **environ;
 
-char *show_input(void);
-void prompt(void);
-
 
 int _putchar(char c);
 int _puts(char *str);
+
 int _strlen(char *str);
 int _strcmp(char *str1, char *str2);
 int _strcpy(char *dest, char *src);
 char *_strcat(char *dest, char *src);
 char *_strdup(const char *str);
+
+void execve_cmd(char **argv);
+char *get_path(char *command);
+int stat(const char *pathname, struct stat *statbuf);
 
 
 
