@@ -16,7 +16,7 @@ extern char **environ;
 
 
 int _putchar(char c);
-int _puts(char *str);
+void _puts(char *str);
 
 int _strlen(char *str);
 int _strcmp(char *str1, char *str2);
@@ -30,6 +30,7 @@ int cmpenv(char *s1, char *s2);
 void execve_cmd(char **argv);
 char *get_path(char *command);
 int stat(const char *pathname, struct stat *statbuf);
+char **line_tokenizer(char *lineptr, ssize_t read_count);
 
 
 

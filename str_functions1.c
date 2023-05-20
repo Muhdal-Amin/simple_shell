@@ -2,7 +2,7 @@
 
 /**
  * _strlen - returns the length of a string
- * @str - the string
+ * @str : the string
  *
  * Return: length of string
  */
@@ -21,8 +21,8 @@ int _strlen(char *str)
 
 /**
  * _strcmp - compares two string
- * @str1 - first string
- * @str2 - second string
+ * @str1 : first string
+ * @str2 : second string
  *
  * Return: 0 if they are simmilar, -1 otherwise
  */
@@ -36,7 +36,7 @@ int _strcmp(char *str1, char *str2)
 	if (_strlen(str1) != _strlen(str2))
 		return (-1);
 
-	for(i = 0; i <= _strlen(str1); i++)
+	for (i = 0; i <= _strlen(str1); i++)
 	{
 		if (str1[i] != str2[i])
 			return (-1);
@@ -47,8 +47,8 @@ int _strcmp(char *str1, char *str2)
 
 /**
  * _strcpy - copies content of a string to another string
- * @dest - the new duplicate string
- * @src - the original string
+ * @dest : the new duplicate string
+ * @src : the original string
  *
  * Return: 0
  */
