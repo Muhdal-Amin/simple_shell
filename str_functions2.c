@@ -2,8 +2,8 @@
 
 /**
  * _strcat - concatenates two strings
- * @dest - string to concatenate to
- * @src - source of string
+ * @dest: string to concatenate to
+ * @src: source of string
  *
  * Return: final string
  */
@@ -35,7 +35,7 @@ char *_strcat(char *dest, char *src)
 
 /**
  * _strdup - duplicates a string
- * @str - string to be duplicated
+ * @str: string to be duplicated
  *
  * Return: pointer to duplicate string
  */

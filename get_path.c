@@ -21,7 +21,6 @@ char *get_path(char *command)
 	{
 		path_dup = _strdup(path);
 		cmd_length = _strlen(command);
-
 		path_token = strtok(path_dup, delim);
 		while (path_token)
 		{
@@ -32,7 +31,6 @@ char *get_path(char *command)
 			_strcat(path_file, "/");
 			_strcat(path_file, command);
 			_strcat(path_file, "\0");
-
 			if (stat(path_file, &buffer) == 0)
 			{
 				free(path_dup);

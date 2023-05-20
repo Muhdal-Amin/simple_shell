@@ -24,6 +24,9 @@ int _strcpy(char *dest, char *src);
 char *_strcat(char *dest, char *src);
 char *_strdup(const char *str);
 
+int cmpexit(char *s1, char *s2);
+int cmpenv(char *s1, char *s2);
+
 void execve_cmd(char **argv);
 char *get_path(char *command);
 int stat(const char *pathname, struct stat *statbuf);

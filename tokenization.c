@@ -7,5 +7,4 @@
  *
  * Return: pointer to array of tokenized text
  */
-char *line_tokenizer(char *lineptr)
-{
+char *line_tokenizer(char *lineptr);
