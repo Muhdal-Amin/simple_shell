@@ -22,46 +22,31 @@ int main(int argc, char **argv)
 	pid_t child_pid;
 
 	(void)argc;
-
 	while (1)
 	{
 		_puts(prompt);
-
 		read_count = getline(&lineptr, &n, stdin);
 		if (read_count == -1)
 		{
 			_puts("Error reading command\n");
 			return (-1);
 		}
-
 		if (cmpexit(lineptr, "exit") == 0)
 			exit(0);
-
 		if (cmpenv(lineptr, "env") == 0)
 		{
-			char **env = environ;
-
-			while (*env != NULL)
+			if (environ != NULL)
 			{
-				if (!(_strcmp(*env, "USER")) ||
-				    !(_strcmp(*env, "LANGUAGE")) ||
-				    !(_strcmp(*env, "SESSION")) ||
-				    !(_strcmp(*env, "COMPIZ_CONFIG_PROFILE")) ||
-				    !(_strcmp(*env, "SHLV")) ||
-				    !(_strcmp(*env, "HOME")) ||
-				    !(_strcmp(*env, "C_IS")) ||
-				    !(_strcmp(*env, "DESKTOP_SESSION")) ||
-				    !(_strcmp(*env, "LOGNAME")) ||
-				    !(_strcmp(*env, "TERM")) ||
-				    !(_strcmp(*env, "PATH")))
+				char **env = environ;
+
+				while (*env != NULL)
 				{
 					_puts(*env);
 					_puts("\n");
+					env++;
 				}
-				env++;
 			}
 		}
-
 		lineptr_dup = malloc(sizeof(char) * read_count);
 		if (!lineptr_dup)
 		{
@@ -69,7 +54,6 @@ int main(int argc, char **argv)
 			return (-1);
 		}
 		_strcpy(lineptr_dup, lineptr);
-
 		tok_count = 0;
 		token = strtok(lineptr, delim);
 		while (token)
@@ -78,18 +62,15 @@ int main(int argc, char **argv)
 			token = strtok(NULL, delim);
 		}
 		tok_count++;
-
 		argv = malloc(sizeof(char *) * tok_count);
 		token = strtok(lineptr_dup, delim);
 		for (i = 0; token != NULL; i++)
 		{
 			argv[i] = malloc(sizeof(char) * _strlen(token));
 			_strcpy(argv[i], token);
-
 			token = strtok(NULL, delim);
 		}
 		argv[i] = NULL;
-
 		child_pid = fork();
 		if (child_pid == -1)
 		{
@@ -103,11 +84,8 @@ int main(int argc, char **argv)
 		else
 			wait(&status);
 	}
-
 	free(lineptr);
 	free(lineptr_dup);
 	free(argv);
-
 	return (0);
-
 }
