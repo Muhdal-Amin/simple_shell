@@ -68,20 +68,20 @@ char *_strdup(const char *str)
  * @s2" The second string
  * @n: The maximum number of characters to compare
  *
- * Return: 0 if the strings are equal, negative value if s1 < s2, positive value if s1 > s2
+ * Return: 0 if the strings are equal,-ve value if s1 < s2,+ve value if s1 > s2
  */
 
 int _strncmp(const char *s1, const char *s2, size_t n)
 {
-        size_t i;
+	size_t i;
 
-        for (i = 0; i < n; i++)
-        {
-                if (s1[i] != s2[i])
-                        return s1[i] - s2[i];
-                else if (s1[i] == '\0')
-                        return 0;
-        }
+	for (i = 0; i < n; i++)
+	{
+		if (s1[i] != s2[i])
+			return (s1[i] - s2[i]);
+		else if (s1[i] == '\0')
+			return (0);
+	}
 
-        return 0;
+	return (0);
 }
