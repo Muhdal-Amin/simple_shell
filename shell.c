@@ -31,6 +31,8 @@ int main(int argc, char **argv)
 			_puts("Error reading command\n");
 			return (-1);
 		}
+		if (read_count == 1)
+			continue;
 		if (cmpexit(lineptr, "exit") == 0)
 			exit(0);
 		if (cmpenv(lineptr, "env") == 0)

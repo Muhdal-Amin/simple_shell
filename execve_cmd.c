@@ -18,6 +18,6 @@ void execve_cmd(char **argv)
 		command_path = get_path(command);
 
 		if (execve(command_path, argv, NULL) == -1)
-			perror("Command Execution Error");
+			perror("Error");
 	}
 }
