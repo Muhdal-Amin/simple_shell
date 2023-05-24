@@ -20,12 +20,6 @@ char *_getenv(const char *name)
 		if (_strncmp(name, environ[i], name_length) == 0 &&
 		    environ[i][name_length] == '=')
 			return (&environ[i][name_length + 1]);
-       }
-
-	for (i = 0; environ[i] != NULL; i++)
-        {
-                if (_strncmp(name, environ[i], name_length) == 0 && environ[i][name_length] == '=')
-                        return &environ[i][name_length + 1];
 	}
 	return (NULL);
 }
