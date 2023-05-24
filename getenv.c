@@ -9,11 +9,8 @@
 
 char *_getenv(const char *name)
 {
-	size_t name_length = strlen(name);
-	
 	extern char **environ;
         size_t name_length = strlen(name);
-	int i = 0;
 
 	if (name_length == 0 || environ == NULL)
 		return (NULL);
