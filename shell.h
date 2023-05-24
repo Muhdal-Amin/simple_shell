@@ -23,6 +23,7 @@ int _strcmp(char *str1, char *str2);
 int _strcpy(char *dest, char *src);
 char *_strcat(char *dest, char *src);
 char *_strdup(const char *str);
+int _strncmp(const char *s1, const char *s2, size_t n);
 
 int cmpexit(char *s1, char *s2);
 int cmpenv(char *s1, char *s2);
@@ -31,7 +32,7 @@ void execve_cmd(char **argv);
 char *get_path(char *command);
 int stat(const char *pathname, struct stat *statbuf);
 char **line_tokenizer(char *lineptr, ssize_t read_count);
-
+char *_getenv(const char *name);
 
 
 

@@ -15,7 +15,7 @@ char *get_path(char *command)
 	struct stat buffer;
 	const char *delim = ":";
 
-	path = getenv("PATH");
+	path = _getenv("PATH");
 
 	if (path)
 	{
