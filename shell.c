@@ -11,19 +11,23 @@
 int main(int argc, char **argv)
 {
 	int i = 0;
-	int tok_count;
+	int tok_count = 0;
 	int status;
 	size_t n = 0;
-	ssize_t read_count;
+	ssize_t read_count = 0;
 	char *prompt = "$ ";
 	char *lineptr = NULL, *lineptr_dup = NULL;
-	char *token;
+	char *token = NULL;
 	const char *delim = " \n";
 	pid_t child_pid;
+	char *test = NULL;
+
 
 	(void)argc;
 	while (1)
 	{
+		i = 0; tok_count = 0; n = 0; read_count = 0;
+	
 		_puts(prompt);
 		read_count = getline(&lineptr, &n, stdin);
 		if (read_count == -1)
@@ -58,6 +62,14 @@ int main(int argc, char **argv)
 		_strcpy(lineptr_dup, lineptr);
 		tok_count = 0;
 		token = strtok(lineptr, delim);
+		test = token;
+		if (get_path(test) == NULL)
+		{
+			_puts(test);
+			_puts(": command not found\n");
+			free(lineptr); free(lineptr_dup);
+			continue;
+		}
 		while (token)
 		{
 			tok_count++;
