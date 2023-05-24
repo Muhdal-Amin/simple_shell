@@ -32,7 +32,6 @@ int main(int argc, char **argv)
 		read_count = getline(&lineptr, &n, stdin);
 		if (read_count == -1)
 		{
-			free(lineptr);
 			_puts("Error reading command\n");
 			return (-1);
 		}
@@ -54,7 +53,7 @@ int main(int argc, char **argv)
 				}
 			}
 		}
-		lineptr_dup = malloc(sizeof(char) * read_count);
+		lineptr_dup = malloc(sizeof(char) * (read_count - 1));
 		if (!lineptr_dup)
 		{
 			perror("Memory Allocation Error");
