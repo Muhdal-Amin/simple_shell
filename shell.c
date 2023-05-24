@@ -26,12 +26,13 @@ int main(int argc, char **argv)
 	(void)argc;
 	while (1)
 	{
-		i = 0; tok_count = 0; n = 0; read_count = 0;
-	
-		_puts(prompt);
+		if (isatty(STDIN_FILENO) == 1)
+			_puts(prompt);
+
 		read_count = getline(&lineptr, &n, stdin);
 		if (read_count == -1)
 		{
+			free(lineptr);
 			_puts("Error reading command\n");
 			return (-1);
 		}
@@ -69,7 +70,7 @@ int main(int argc, char **argv)
 			_puts(": command not found\n");
 			free(lineptr); free(lineptr_dup);
 			continue;
-		}
+		}else {
 		while (token)
 		{
 			tok_count++;
@@ -97,6 +98,7 @@ int main(int argc, char **argv)
 		}
 		else
 			wait(&status);
+		}
 	}
 	free(lineptr);
 	free(lineptr_dup);
