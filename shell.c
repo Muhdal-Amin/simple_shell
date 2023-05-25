@@ -108,7 +108,6 @@ int main(int argc, char **argv)
 	}	
 	free(lineptr);
 	free(lineptr_dup);
-	free(argv);
 	
 
 	return (EXIT_SUCCESS);
