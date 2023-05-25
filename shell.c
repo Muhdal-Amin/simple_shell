@@ -36,9 +36,13 @@ int main(int argc, char **argv)
 			return (-1);
 		}
 		if (read_count == 1)
+		{
 			continue;
+		}
 		if (cmpexit(lineptr, "exit") == 0)
+		{
 			break;
+		}
 		if (cmpenv(lineptr, "env") == 0)
 		{
 			if (environ != NULL)
@@ -99,20 +103,14 @@ int main(int argc, char **argv)
 		else
 		{
 			wait(&status);
-			free(lineptr);
-			free(lineptr_dup);
 		}
-
 		}
 	}
 	free(lineptr);
 	free(lineptr_dup);
 	free(argv);
 	i = 0;
-	while (argv[i])
-	{
-		free(argv[i]);
-		i++;
-	}
+
 	return (EXIT_SUCCESS);
+	
 }

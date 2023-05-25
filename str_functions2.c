@@ -60,12 +60,13 @@ char *_strdup(const char *str)
 	result[i] = '\0';
 
 	return (result);
+	free(result);
 }
 
 /**
  * _strncmp - A function that compares two strings up to a specified length
  * @s1: The first string
- * @s2" The second string
+ * @s2 The second string
  * @n: The maximum number of characters to compare
  *
  * Return: 0 if the strings are equal,-ve value if s1 < s2,+ve value if s1 > s2
