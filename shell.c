@@ -32,8 +32,7 @@ int main(int argc, char **argv)
 		read_count = getline(&lineptr, &n, stdin);
 		if (read_count == -1)
 		{
-			/*_puts("Error reading command\n");*/
-			return (-1);
+			break;
 		}
 		if (read_count == 1)
 		{
@@ -57,7 +56,7 @@ int main(int argc, char **argv)
 				}
 			}
 		}
-		lineptr_dup = malloc(sizeof(char) * (read_count - 1));
+		lineptr_dup = malloc(sizeof(char) * (read_count));
 		if (!lineptr_dup)
 		{
 			perror("Memory Allocation Error");
@@ -71,7 +70,6 @@ int main(int argc, char **argv)
 		{
 			_puts(test);
 			_puts(": command not found\n");
-			free(lineptr); free(lineptr_dup);
 			continue;
 		}else {
 		while (token)
@@ -108,8 +106,9 @@ int main(int argc, char **argv)
 	}	
 	free(lineptr);
 	free(lineptr_dup);
+	free(argv);
 	
-
+	exit(0);
 	return (EXIT_SUCCESS);
 	
 }

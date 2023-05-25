@@ -60,7 +60,6 @@ char *_strdup(const char *str)
 	result[i] = '\0';
 
 	return (result);
-	free(result);
 }
 
 /**
