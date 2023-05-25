@@ -35,9 +35,7 @@ char *get_path(char *command)
 			{
 				free(path_dup);
 				return (path_file);
-			}
-			else
-			{
+			} else {
 				free(path_file);
 				path_token = strtok(NULL, delim);
 			}

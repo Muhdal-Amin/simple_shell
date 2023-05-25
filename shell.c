@@ -27,18 +27,18 @@ int main(int argc, char **argv)
 	while (1)
 	{
 		if (isatty(STDIN_FILENO) == 1)
-			_puts(prompt);
+			write(STDOUT_FILENO, prompt, 3);
 
 		read_count = getline(&lineptr, &n, stdin);
 		if (read_count == -1)
 		{
-			_puts("Error reading command\n");
+			/*_puts("Error reading command\n");*/
 			return (-1);
 		}
 		if (read_count == 1)
 			continue;
 		if (cmpexit(lineptr, "exit") == 0)
-			exit(0);
+			exit(EXIT_SUCCESS);
 		if (cmpenv(lineptr, "env") == 0)
 		{
 			if (environ != NULL)
@@ -102,5 +102,5 @@ int main(int argc, char **argv)
 	free(lineptr);
 	free(lineptr_dup);
 	free(argv);
-	return (0);
+	return (EXIT_SUCCESS);
 }
