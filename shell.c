@@ -18,16 +18,18 @@ int main(int argc, char **argv)
 	char *prompt = "$ ";
 	char *lineptr = NULL, *lineptr_dup = NULL;
 	char *token = NULL;
-	const char *delim = " \n";
+	const char *delim = " :\n\t\r\f\v";
 	pid_t child_pid;
 	char *test = NULL;
 
+	/*(void)argc;*/
 
-	(void)argc;
+	if (argc < 1)
+		return (-1);
 	while (1)
 	{
-		if (isatty(STDIN_FILENO) == 1)
-			write(STDOUT_FILENO, prompt, 3);
+		if ((isatty(STDIN_FILENO) == 1) && (isatty (STDOUT_FILENO) == 1))
+			write(STDOUT_FILENO, prompt, 2);
 
 		read_count = getline(&lineptr, &n, stdin);
 		if (read_count == -1)
@@ -96,7 +98,7 @@ int main(int argc, char **argv)
 		if (child_pid == 0)
 		{
 			execve_cmd(argv);
-			exit(0);
+			exit(98);
 		}
 		else
 		{
