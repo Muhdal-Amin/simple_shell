@@ -94,17 +94,22 @@ int main(int argc, char **argv)
 		if (child_pid == 0)
 		{
 			execve_cmd(argv);
+			exit(0);
 		}
 		else
 		{
 			wait(&status);
-			exit(0);
 		}
 
 		}
 	}
 	free(lineptr);
 	free(lineptr_dup);
-	free(argv);
+	i = 0;
+	while (argv[i])
+	{
+		free(argv);
+		i++;
+	}
 	return (EXIT_SUCCESS);
 }
