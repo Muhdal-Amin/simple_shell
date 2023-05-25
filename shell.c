@@ -96,7 +96,11 @@ int main(int argc, char **argv)
 			execve_cmd(argv);
 		}
 		else
+		{
 			wait(&status);
+			exit(0);
+		}
+
 		}
 	}
 	free(lineptr);
