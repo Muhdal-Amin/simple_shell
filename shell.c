@@ -105,11 +105,11 @@ int main(int argc, char **argv)
 			wait(&status);
 		}
 		}
-	}
+	}	
 	free(lineptr);
 	free(lineptr_dup);
 	free(argv);
-	i = 0;
+	
 
 	return (EXIT_SUCCESS);
 	
