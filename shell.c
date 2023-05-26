@@ -33,14 +33,14 @@ int main(int ac, char **av, char *env[])
 
 		if (read_count == -1)
 			exit(0);
-		if (read_count == 1)
+		if (read_count == 1)	/* checks if input is empty */
 			continue;
 		
-		if (cmpexit(lineptr, "exit") == 0)
+		if (cmpexit(lineptr, "exit") == 0)	/* checks for exit command */
 		{
 			break;
 		}	
-		if (cmpenv(lineptr, "env") == 0)
+		if (cmpenv(lineptr, "env") == 0)	/* checks for env command */
 		{
 			if (environ != NULL)
 			{
@@ -63,12 +63,12 @@ int main(int ac, char **av, char *env[])
 			return (-1);
 		}
 
-		_strcpy(lineptr_dup, lineptr);
+		_strcpy(lineptr_dup, lineptr);	/* duplicate input to prevent loss of string through strtok */
 
 		tok_count = 0;
 		token = strtok(lineptr, delim);
 		test = token;
-		if (get_path(test) == NULL)
+		if (get_path(test) == NULL)	/* test if command exists */
 		{
 			_puts("sh: 1: ");
 			_puts(test);
@@ -88,7 +88,7 @@ int main(int ac, char **av, char *env[])
 		av = malloc(sizeof(char *) * tok_count);
 
 		token = strtok(lineptr_dup, delim);
-		for (i = 0; token != NULL; i++)
+		for (i = 0; token != NULL; i++)		/* tokenization */
 		{
 			av[i] = malloc(sizeof(char) * _strlen(token));
 			_strcpy(av[i], token);

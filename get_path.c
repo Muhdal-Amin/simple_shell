@@ -9,9 +9,9 @@
  */
 char *get_path(char *command)
 {
-	char *path, *path_dup;
-	char *path_token, *path_file;
-	int cmd_length, dir_length;
+	char *path = NULL, *path_dup = NULL;
+	char *path_token = NULL, *path_file =NULL;
+	int cmd_length = 0, dir_length = 0;
 	struct stat buffer;
 	const char *delim = ":";
 
@@ -22,6 +22,7 @@ char *get_path(char *command)
 		path_dup = _strdup(path);
 		cmd_length = _strlen(command);
 		path_token = strtok(path_dup, delim);
+
 		while (path_token)
 		{
 			dir_length = _strlen(path_token);

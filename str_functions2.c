@@ -10,25 +10,12 @@
 char *_strcat(char *dest, char *src)
 {
 	int i = 0, j = 0;
-	char *result;
 
-	if (!dest && !src)
-		return (NULL);
-
-	result = dest;
-
-	while (result[i] != '\0')
-		i++;
-
-	while (src[j] != '\0')
-	{
-		result[i] = src[j];
-		i++;
+	while (dest[i++])
 		j++;
-	}
-	result[i] = '\0';
 
-	dest = result;
+	for (i = 0; src[i]; i++)
+		dest[j++] = src[i];
 
 	return (dest);
 }
@@ -42,7 +29,7 @@ char *_strcat(char *dest, char *src)
 char *_strdup(const char *str)
 {
 	int i = 0;
-	char *result;
+	char *result = NULL;
 
 	if (!str)
 		return (NULL);
@@ -73,7 +60,7 @@ char *_strdup(const char *str)
 
 int _strncmp(const char *s1, const char *s2, size_t n)
 {
-	size_t i;
+	size_t i = 0;
 
 	for (i = 0; i < n; i++)
 	{
