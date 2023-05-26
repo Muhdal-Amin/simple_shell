@@ -70,8 +70,9 @@ int main(int argc, char **argv)
 		test = token;
 		if (get_path(test) == NULL)
 		{
+			_puts("sh: 1: ");
 			_puts(test);
-			_puts(": command not found\n");
+			_puts(": not found\n");
 			continue;
 		} else {
 		while (token)
@@ -109,7 +110,6 @@ int main(int argc, char **argv)
 	}	
 	free(lineptr);
 	free(lineptr_dup);
-	free(argv);
 	
 	return (EXIT_SUCCESS);
 	

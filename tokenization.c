@@ -45,7 +45,6 @@ char **line_tokenizer(char *lineptr, ssize_t read_count)
 	}
 	argv[i] = NULL;
 
-	free(lineptr_dup);
 
 	return (argv);
 }
