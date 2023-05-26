@@ -8,7 +8,7 @@
  * Return: loop that ends on user exit command
  */
 
-int main(int argc, char **argv)
+int main(int ac, char **av, char *env[])
 {
 	int i = 0;
 	int tok_count = 0;
@@ -22,7 +22,7 @@ int main(int argc, char **argv)
 	pid_t child_pid;
 	char *test = NULL;
 
-	(void)argc;
+	(void)ac, (void)env;
 
 	while (1)
 	{
@@ -37,7 +37,9 @@ int main(int argc, char **argv)
 			continue;
 		
 		if (cmpexit(lineptr, "exit") == 0)
-			break;		
+		{
+			break;
+		}	
 		if (cmpenv(lineptr, "env") == 0)
 		{
 			if (environ != NULL)
@@ -51,6 +53,7 @@ int main(int argc, char **argv)
 					env++;
 				}
 			}
+			continue;
 		}
 
 		lineptr_dup = malloc(sizeof(char) * (read_count));
@@ -82,16 +85,16 @@ int main(int argc, char **argv)
 		}
 		tok_count++;
 
-		argv = malloc(sizeof(char *) * tok_count);
+		av = malloc(sizeof(char *) * tok_count);
 
 		token = strtok(lineptr_dup, delim);
 		for (i = 0; token != NULL; i++)
 		{
-			argv[i] = malloc(sizeof(char) * _strlen(token));
-			_strcpy(argv[i], token);
+			av[i] = malloc(sizeof(char) * _strlen(token));
+			_strcpy(av[i], token);
 			token = strtok(NULL, delim);
 		}
-		argv[i] = NULL;
+		av[i] = NULL;
 
 		child_pid = fork();
 		if (child_pid == -1)
@@ -101,7 +104,7 @@ int main(int argc, char **argv)
 		}
 		if (child_pid == 0)
 		{
-			execve_cmd(argv);
+			execve_cmd(av);
 			exit(0);
 		}
 		else
@@ -111,8 +114,6 @@ int main(int argc, char **argv)
 		}
 
 	}
-	free(lineptr);
-	free(lineptr_dup);
 	
 	return (EXIT_SUCCESS);
 	

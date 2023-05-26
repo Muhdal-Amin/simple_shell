@@ -6,19 +6,19 @@
  *
  * Return: void
  */
-void execve_cmd(char **argv)
+void execve_cmd(char **av)
 {
 	char *command = NULL;
 	char *command_path = NULL;
 	char **env = environ;
 
-	if (argv)
+	if (av)
 	{
-		command = argv[0];
+		command = av[0];
 
 		command_path = get_path(command);
 
-		if (execve(command_path, argv, env) == -1)
+		if (execve(command_path, av, env) == -1)
 			perror("execve");
 	}
 }
