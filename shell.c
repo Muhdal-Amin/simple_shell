@@ -32,18 +32,12 @@ int main(int argc, char **argv)
 		read_count = getline(&lineptr, &n, stdin);
 
 		if (read_count == -1)
-		{
 			break;
-		}
 		if (read_count == 1)
-		{
 			continue;
-		}
 		
 		if (cmpexit(lineptr, "exit") == 0)
-		{
-			break;
-		}
+			break;		
 		if (cmpenv(lineptr, "env") == 0)
 		{
 			if (environ != NULL)
@@ -58,13 +52,16 @@ int main(int argc, char **argv)
 				}
 			}
 		}
+
 		lineptr_dup = malloc(sizeof(char) * (read_count));
 		if (!lineptr_dup)
 		{
 			perror("Memory Allocation Error");
 			return (-1);
 		}
+
 		_strcpy(lineptr_dup, lineptr);
+
 		tok_count = 0;
 		token = strtok(lineptr, delim);
 		test = token;
@@ -74,14 +71,19 @@ int main(int argc, char **argv)
 			_puts(test);
 			_puts(": not found\n");
 			continue;
-		} else {
+		} 
+		else
+		{
+
 		while (token)
 		{
 			tok_count++;
 			token = strtok(NULL, delim);
 		}
 		tok_count++;
+
 		argv = malloc(sizeof(char *) * tok_count);
+
 		token = strtok(lineptr_dup, delim);
 		for (i = 0; token != NULL; i++)
 		{
@@ -90,6 +92,7 @@ int main(int argc, char **argv)
 			token = strtok(NULL, delim);
 		}
 		argv[i] = NULL;
+
 		child_pid = fork();
 		if (child_pid == -1)
 		{
@@ -107,7 +110,7 @@ int main(int argc, char **argv)
 		}
 		}
 
-	}	
+	}
 	free(lineptr);
 	free(lineptr_dup);
 	
