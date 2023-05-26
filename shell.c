@@ -22,16 +22,15 @@ int main(int argc, char **argv)
 	pid_t child_pid;
 	char *test = NULL;
 
-	/*(void)argc;*/
+	(void)argc;
 
-	if (argc < 1)
-		return (-1);
 	while (1)
 	{
 		if ((isatty(STDIN_FILENO) == 1) && (isatty (STDOUT_FILENO) == 1))
 			write(STDOUT_FILENO, prompt, 2);
 
 		read_count = getline(&lineptr, &n, stdin);
+
 		if (read_count == -1)
 		{
 			break;
@@ -40,6 +39,7 @@ int main(int argc, char **argv)
 		{
 			continue;
 		}
+		
 		if (cmpexit(lineptr, "exit") == 0)
 		{
 			break;
@@ -73,7 +73,7 @@ int main(int argc, char **argv)
 			_puts(test);
 			_puts(": command not found\n");
 			continue;
-		}else {
+		} else {
 		while (token)
 		{
 			tok_count++;
@@ -98,19 +98,19 @@ int main(int argc, char **argv)
 		if (child_pid == 0)
 		{
 			execve_cmd(argv);
-			exit(98);
+			exit(0);
 		}
 		else
 		{
 			wait(&status);
 		}
 		}
+
 	}	
 	free(lineptr);
 	free(lineptr_dup);
 	free(argv);
 	
-	exit(0);
 	return (EXIT_SUCCESS);
 	
 }
