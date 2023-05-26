@@ -114,6 +114,8 @@ int main(int ac, char **av, char *env[])
 		}
 
 	}
+	free(lineptr);
+	free(lineptr_dup);
 	
 	return (EXIT_SUCCESS);
 	

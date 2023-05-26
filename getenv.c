@@ -10,7 +10,7 @@
 char *_getenv(const char *name)
 {
 	extern char **environ;
-        size_t name_length = strlen(name);
+        size_t name_length = _strlen(name);
 	int i = 0;
 
 	if (name_length == 0 || environ == NULL)

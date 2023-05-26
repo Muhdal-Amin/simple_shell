@@ -15,10 +15,10 @@
 extern char **environ;
 
 
-int _putchar(char c);
+int my_putchar(char c);
 void _puts(char *str);
 
-int _strlen(char *str);
+int _strlen(const char *str);
 int _strcmp(char *str1, char *str2);
 int _strcpy(char *dest, char *src);
 char *_strcat(char *dest, char *src);
