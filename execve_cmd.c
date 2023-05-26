@@ -10,6 +10,7 @@ void execve_cmd(char **argv)
 {
 	char *command = NULL;
 	char *command_path = NULL;
+	char **env = environ;
 
 	if (argv)
 	{
@@ -17,7 +18,7 @@ void execve_cmd(char **argv)
 
 		command_path = get_path(command);
 
-		if (execve(command_path, argv, NULL) == -1)
-			perror("Error");
+		if (execve(command_path, argv, env) == -1)
+			perror("execve");
 	}
 }
