@@ -32,7 +32,7 @@ int main(int ac, char **av, char *env[])
 		read_count = getline(&lineptr, &n, stdin);
 
 		if (read_count == -1)
-			break;
+			exit(0);
 		if (read_count == 1)
 			continue;
 		
