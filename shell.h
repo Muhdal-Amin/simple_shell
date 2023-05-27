@@ -33,6 +33,9 @@ char *get_path(char *str);
 int stat(const char *pathname, struct stat *statbuf);
 char **line_tokenizer(char *lineptr, ssize_t read_count);
 char *_getenv(const char *name);
+void get_tokens(char *arr, char *parent);
+void handle_env(void);
+char *_strtok(char *str, char *delim);
 
 
 

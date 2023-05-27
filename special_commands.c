@@ -1,6 +1,23 @@
 #include "shell.h"
 
 /**
+ * handle_env - function that handles the env builtin command.
+ * Return: Void
+ */
+void handle_env(void)
+{
+	int x = 0;
+
+	while (environ[x] != NULL)
+	{
+		write(STDOUT_FILENO, environ[x], _strlen(environ[x]));
+		write(STDOUT_FILENO, "\n", 1);
+		x++;
+	}
+	printf("Done\n");
+}
+
+/**
  * cmpexit - Function that checks if the user inputted the exit command.
  * @s1:first string
  * @s2: second string

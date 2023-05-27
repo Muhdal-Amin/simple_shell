@@ -1,6 +1,32 @@
 #include "shell.h"
 
 /**
+ * seperator - function that handles the seperator function.
+ * @str: Command line string input.
+ * @parent: name of parent file.
+ * Return: void.
+ */
+void seperator(char *str, char *parent)
+{
+	char *arr[4096];
+	int x = 0;
+
+	arr[x] = _strtok(str, ";");
+
+	while (arr[x] != NULL)
+	{
+		x++;
+		arr[x] = _strtok(NULL, ";");
+	}
+	x = 0;
+
+	while (arr[x] != NULL)
+	{
+		get_tokens(arr[x], parent);
+		x++;
+	}
+}
+/**
  * get_tokens - function that splits string into tokens.
  * @arr: cmd line string input
  * @parent: name of parent process
@@ -13,16 +39,21 @@ void get_tokens(char *arr, char *parent)
 	int x = 0;
 	struct stat st;
 
-	argv[x] = strtok(arr, " ");
+	argv[x] = _strtok(arr, " ");
 	while (argv[x] != NULL)
 	{
 		x++;
-		argv[x] = strtok(NULL, " ");
+		argv[x] = _strtok(NULL, " ");
 	}
 	argv[x] = (char *) 0;
 
 	_strcpy(&buff[0], argv[0]);
 
+	if (_strcmp(argv[0], "env") == 0)
+	{
+		handle_env();
+		return;
+	}
 	argv[0] = get_path(buff);
 
 	if (stat(argv[0], &st) != 0)
@@ -42,11 +73,6 @@ void get_tokens(char *arr, char *parent)
 	else
 		execve_cmd(argv);
 	x = 0;
-	while (buff[x] != '\0')
-	{
-		buff[x] = '\0';
-		x++;
-	}
 }
 /**
 * check_empty - function that checks if string is empty.
@@ -84,17 +110,17 @@ int main(int ac, char **av, char **env)
 			if (cmpexit(line, "exit") == 0)
 				break;
 			_strcpy(lineptr, line);
-			arr[i] = strtok(lineptr, delim);
+			arr[i] = _strtok(lineptr, delim);
 			while (arr[i] != NULL)
 			{
 				i++;
-				arr[i] = strtok(NULL, delim);
+				arr[i] = _strtok(NULL, delim);
 			}
 			arr[i] = (char *) 0;
 			i = 0;
 			while (arr[i] != NULL)
 			{
-				get_tokens(arr[i], av[0]);
+				seperator(arr[i], av[0]);
 				i++;
 			}
 			i = 0;

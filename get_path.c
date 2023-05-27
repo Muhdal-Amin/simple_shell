@@ -23,7 +23,7 @@ char *get_path(char *str)
 	command[0] = '/';
 	_strcpy(&command[1], str);
 
-	_strcpy(&path_token[0], strtok(path, ":"));
+	_strcpy(&path_token[0], _strtok(path, ":"));
 
 	_strcpy(&path_token[_strlen(path_token)], &command[0]);
 
@@ -33,7 +33,7 @@ char *get_path(char *str)
 		return (str);
 	}
 
-	while (_strcpy(&path_token[0], strtok(NULL, ":")) != -1)
+	while (_strcpy(&path_token[0], _strtok(NULL, ":")) != -1)
 	{
 
 		_strcpy(&path_token[_strlen(path_token)], &command[0]);
