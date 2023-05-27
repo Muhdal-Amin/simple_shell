@@ -49,11 +49,6 @@ void get_tokens(char *arr, char *parent)
 
 	_strcpy(&buff[0], argv[0]);
 
-	if (_strcmp(argv[0], "env") == 0)
-	{
-		handle_env();
-		return;
-	}
 	argv[0] = get_path(buff);
 
 	if (stat(argv[0], &st) != 0)
