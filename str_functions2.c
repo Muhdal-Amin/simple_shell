@@ -10,12 +10,25 @@
 char *_strcat(char *dest, char *src)
 {
 	int i = 0, j = 0;
+	char *result;
 
-	while (dest[i++])
+	if (!dest && !src)
+		return (NULL);
+
+	result = dest;
+
+	while (result[i] != '\0')
+		i++;
+
+	while (src[j] != '\0')
+	{
+		result[i] = src[j];
+		i++;
 		j++;
+	}
+	result[i] = '\0';
 
-	for (i = 0; src[i]; i++)
-		dest[j++] = src[i];
+	dest = result;
 
 	return (dest);
 }
@@ -29,7 +42,7 @@ char *_strcat(char *dest, char *src)
 char *_strdup(const char *str)
 {
 	int i = 0;
-	char *result = NULL;
+	char *result;
 
 	if (!str)
 		return (NULL);
@@ -52,7 +65,7 @@ char *_strdup(const char *str)
 /**
  * _strncmp - A function that compares two strings up to a specified length
  * @s1: The first string
- * @s2 The second string
+ * @s2: The second string
  * @n: The maximum number of characters to compare
  *
  * Return: 0 if the strings are equal,-ve value if s1 < s2,+ve value if s1 > s2
@@ -60,7 +73,7 @@ char *_strdup(const char *str)
 
 int _strncmp(const char *s1, const char *s2, size_t n)
 {
-	size_t i = 0;
+	size_t i;
 
 	for (i = 0; i < n; i++)
 	{

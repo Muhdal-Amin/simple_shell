@@ -29,7 +29,7 @@ int cmpexit(char *s1, char *s2);
 int cmpenv(char *s1, char *s2);
 
 void execve_cmd(char **av);
-char *get_path(char *command);
+char *get_path(char *str);
 int stat(const char *pathname, struct stat *statbuf);
 char **line_tokenizer(char *lineptr, ssize_t read_count);
 char *_getenv(const char *name);

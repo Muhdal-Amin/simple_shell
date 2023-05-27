@@ -2,23 +2,29 @@
 
 /**
  * execve_cmd - executes a given command
- * @argv : array containing tokenized input text
- *
+ * @av : array containing tokenized input text
  * Return: void
  */
 void execve_cmd(char **av)
 {
-	char *command = NULL;
-	char *command_path = NULL;
 	char **env = environ;
+	pid_t child_pid;
+	int status;
 
-	if (av)
+	child_pid = fork();
+	if (child_pid == -1)
 	{
-		command = av[0];
-
-		command_path = get_path(command);
-
-		if (execve(command_path, av, env) == -1)
-			perror("execve");
+		perror("Forking Error");
+		return;
+	}
+	if (child_pid == 0)
+	{
+		if (execve(av[0], av, env) == -1)
+			perror(av[0]);
+		exit(0);
+	}
+	else
+	{
+		wait(&status);
 	}
 }

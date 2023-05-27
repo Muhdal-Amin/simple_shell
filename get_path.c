@@ -3,49 +3,47 @@
 
 /**
  * get_path - gets the location of a command's script file
- * @command : the command in question
- *
+ * @str : the command in question
  * Return: pointer to string containing path
  */
-char *get_path(char *command)
+char *get_path(char *str)
 {
-	char *path = NULL, *path_dup = NULL;
-	char *path_token = NULL, *path_file =NULL;
-	int cmd_length = 0, dir_length = 0;
+	char path[4096] = {'\0'}, *ptr = &path[0], command[4096] = {'\0'},
+	path_token[4096] = {'\0'};
 	struct stat buffer;
-	const char *delim = ":";
 
-	path = _getenv("PATH");
-
-	if (path)
-	{
-		path_dup = _strdup(path);
-		cmd_length = _strlen(command);
-		path_token = strtok(path_dup, delim);
-
-		while (path_token)
-		{
-			dir_length = _strlen(path_token);
-			path_file = malloc(cmd_length + dir_length + 2);
-
-			_strcpy(path_file, path_token);
-			_strcat(path_file, "/");
-			_strcat(path_file, command);
-			_strcat(path_file, "\0");
-			if (stat(path_file, &buffer) == 0)
-			{
-				free(path_dup);
-				return (path_file);
-			}else {
-				free(path_file);
-				path_token = strtok(NULL, delim);
-			}
-		}
-
-		if (stat(command, &buffer) == 0)
-			return (command);
-
+	if (str == NULL)
 		return (NULL);
+
+	if (ptr == NULL)
+		return (NULL);
+
+	_strcpy(ptr, _getenv("PATH"));
+
+	command[0] = '/';
+	_strcpy(&command[1], str);
+
+	_strcpy(&path_token[0], strtok(path, ":"));
+
+	_strcpy(&path_token[_strlen(path_token)], &command[0]);
+
+	if (stat(path_token, &buffer) == 0)
+	{
+		_strcpy(str, &path_token[0]);
+		return (str);
 	}
-	return (NULL);
+
+	while (_strcpy(&path_token[0], strtok(NULL, ":")) != -1)
+	{
+
+		_strcpy(&path_token[_strlen(path_token)], &command[0]);
+
+		if (stat(path_token, &buffer) == 0)
+		{
+			_strcpy(str, &path_token[0]);
+			return (str);
+		}
+	}
+	return (str);
 }
+

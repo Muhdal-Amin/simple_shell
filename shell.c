@@ -1,122 +1,112 @@
 #include "shell.h"
 
 /**
- * main - entry point
- * @argc: number of arguments
- * @argv: array of strings of arguements
- *
- * Return: loop that ends on user exit command
+ * get_tokens - function that splits string into tokens.
+ * @arr: cmd line string input
+ * @parent: name of parent process
+ * Return: void
  */
 
-int main(int ac, char **av, char *env[])
+void get_tokens(char *arr, char *parent)
+{
+	char *argv[4096], err_msg[4096] = {'\0'}, buff[4096] = {'\0'};
+	int x = 0;
+	struct stat st;
+
+	argv[x] = strtok(arr, " ");
+	while (argv[x] != NULL)
+	{
+		x++;
+		argv[x] = strtok(NULL, " ");
+	}
+	argv[x] = (char *) 0;
+
+	_strcpy(&buff[0], argv[0]);
+
+	argv[0] = get_path(buff);
+
+	if (stat(argv[0], &st) != 0)
+	{
+		_strcpy(&err_msg[0], parent);
+		_strcpy(&err_msg[_strlen(err_msg)], ": ");
+		_strcpy(&err_msg[_strlen(err_msg)], argv[0]);
+		perror(err_msg);
+		x = 0;
+		while (buff[x] != '\0')
+		{
+			buff[x] = '\0';
+			x++;
+		}
+		return;
+	}
+	else
+		execve_cmd(argv);
+	x = 0;
+	while (buff[x] != '\0')
+	{
+		buff[x] = '\0';
+		x++;
+	}
+}
+/**
+* check_empty - function that checks if string is empty.
+* @str: string input.
+* Return: number of empty characters.
+*/
+int check_empty(char *str)
+{
+	int x = 0;
+
+	while (str[x] == ' ' || str[x] == '\n')
+		x++;
+	return (x);
+}
+/**
+ * main - entry point
+ * @ac: number of arguments
+ * @av: array of strings of arguements
+ * @env: arry of environemt variables.
+ * Return: loop that ends on user exit command
+ */
+int main(int ac, char **av, char **env)
 {
 	int i = 0;
-	int tok_count = 0;
-	int status;
-	size_t n = 0;
-	ssize_t read_count = 0;
-	char *prompt = "$ ";
-	char *lineptr = NULL, *lineptr_dup = NULL;
-	char *token = NULL;
-	const char *delim = " :\n\t\r\f\v";
-	pid_t child_pid;
-	char *test = NULL;
+	char *prompt = "$ ", lineptr[4096] = {'\0'}, *line = &lineptr[0],
+	*arr[4096], *delim = "\n\t\r\f\v";
 
 	(void)ac, (void)env;
-
-	while (1)
+	if ((isatty(STDIN_FILENO) == 1) && (isatty(STDOUT_FILENO) == 1))
+		write(STDOUT_FILENO, prompt, 2);
+	while (read(STDIN_FILENO, line, 4096) && *line != EOF)
 	{
-		if ((isatty(STDIN_FILENO) == 1) && (isatty (STDOUT_FILENO) == 1))
-			write(STDOUT_FILENO, prompt, 2);
-
-		read_count = getline(&lineptr, &n, stdin);
-
-		if (read_count == -1)
-			exit(0);
-		if (read_count == 1)	/* checks if input is empty */
-			continue;
-		
-		if (cmpexit(lineptr, "exit") == 0)	/* checks for exit command */
+		if (check_empty(line) != _strlen(line))
 		{
-			break;
-		}	
-		if (cmpenv(lineptr, "env") == 0)	/* checks for env command */
-		{
-			if (environ != NULL)
+			if (cmpexit(line, "exit") == 0)
+				break;
+			_strcpy(lineptr, line);
+			arr[i] = strtok(lineptr, delim);
+			while (arr[i] != NULL)
 			{
-				char **env = environ;
-
-				while (*env != NULL)
-				{
-					_puts(*env);
-					_puts("\n");
-					env++;
-				}
+				i++;
+				arr[i] = strtok(NULL, delim);
 			}
-			continue;
+			arr[i] = (char *) 0;
+			i = 0;
+			while (arr[i] != NULL)
+			{
+				get_tokens(arr[i], av[0]);
+				i++;
+			}
+			i = 0;
+			while (line[i] != '\0')
+			{
+				line[i] = '\0';
+				i++;
+			}
+			i = 0;
 		}
-
-		lineptr_dup = malloc(sizeof(char) * (read_count));
-		if (!lineptr_dup)
-		{
-			perror("Memory Allocation Error");
-			return (-1);
-		}
-
-		_strcpy(lineptr_dup, lineptr);	/* duplicate input to prevent loss of string through strtok */
-
-		tok_count = 0;
-		token = strtok(lineptr, delim);
-		test = token;
-		if (get_path(test) == NULL)	/* test if command exists */
-		{
-			_puts("sh: 1: ");
-			_puts(test);
-			_puts(": not found\n");
-			continue;
-		} 
-		else
-		{
-
-		while (token)
-		{
-			tok_count++;
-			token = strtok(NULL, delim);
-		}
-		tok_count++;
-
-		av = malloc(sizeof(char *) * tok_count);
-
-		token = strtok(lineptr_dup, delim);
-		for (i = 0; token != NULL; i++)		/* tokenization */
-		{
-			av[i] = malloc(sizeof(char) * _strlen(token));
-			_strcpy(av[i], token);
-			token = strtok(NULL, delim);
-		}
-		av[i] = NULL;
-
-		child_pid = fork();
-		if (child_pid == -1)
-		{
-			perror("Forking Error");
-			return (-1);
-		}
-		if (child_pid == 0)
-		{
-			execve_cmd(av);
-			exit(0);
-		}
-		else
-		{
-			wait(&status);
-		}
-		}
-
+		if ((isatty(STDIN_FILENO) == 1) && (isatty(STDOUT_FILENO) == 1))
+			write(STDOUT_FILENO, prompt, 2);
 	}
-	free(lineptr);
-	free(lineptr_dup);
-	
 	return (EXIT_SUCCESS);
-	
 }
